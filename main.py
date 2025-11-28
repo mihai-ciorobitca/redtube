@@ -1,5 +1,4 @@
 import asyncio
-from playwright.async_api import async_playwright
 from utils import get_username, get_verification_code
 import time
 from browser_manager import AsyncBrowserManager
