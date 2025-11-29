@@ -188,14 +188,9 @@ Do not use this automation to bypass security or create real accounts.
 
 ## 🚀 Future Enhancements
 
-Structured logging and JSON output
-
-HTML/Allure test reporting
-
-Selector abstraction for maintainability
-
-Parallel execution of workflows
-
-Integration with multiple mailbox providers
-
-UI flow visualization and reporting
+- Structured logging and JSON output
+- HTML/Allure test reporting
+- Selector abstraction for maintainability
+- Parallel execution of workflows
+- Integration with multiple mailbox providers
+- UI flow visualization and reporting
