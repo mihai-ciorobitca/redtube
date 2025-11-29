@@ -79,6 +79,8 @@ Key capabilities:
 ## 📂 Project Structure
 
 💻 Example Code Snippet
+
+```
 async def sign_up(page, username, password):
     await page.goto("https://www.redtube.com/register")
 
@@ -113,6 +115,7 @@ async def sign_up(page, username, password):
         }})()
     """)
     return username
+```
 
 ⚙️ Installation
 pip install playwright
