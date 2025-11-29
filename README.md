@@ -78,7 +78,51 @@ Key capabilities:
 
 ## 📂 Project Structure
 
-💻 Example Code Snippet
+/project
+
+├─ browser_manager.py
+
+├─ utils.py
+
+├─ main.py
+
+├─ screenshots/
+
+└─ README.md
+
+---
+
+## 📝 How It Works
+
+### **1. Sign-Up Flow**
+- Navigate to Pornhub  
+- Handle age and cookie banners  
+- Open sign-up dialog  
+- Fill email and password  
+- Wait for email verification modal  
+- Retrieve verification code via `get_verification_code()`  
+- Input digits into UI fields  
+- Handle "Date of Birth" modal if shown  
+- Accept "Terms of Service" modal  
+- Confirm success through profile menu  
+
+### **2. Sign-In Flow**
+- Navigate to homepage  
+- Handle modals  
+- Enter credentials  
+- Complete DOB/TOS if shown  
+- Confirm login  
+
+### **3. Runner Loop**
+Loops the automation up to **1000 times**:
+
+```
+async def runner():
+    for _ in range(1000):
+        await main()
+```
+
+## 💻 Example Code Snippet
 
 ```
 async def sign_up(page, username, password):
@@ -117,25 +161,32 @@ async def sign_up(page, username, password):
     return username
 ```
 
-⚙️ Installation
+### ⚙️ Installation
+
+```
 pip install playwright
 playwright install
+```
 
-▶️ Running the Script
+### ▶️ Running the Script
+
+```
 python main.py
-
+```
 
 Screenshots will be available in:
 
+```
 /screenshots/<username>_screenshot.png
+```
 
-⚠️ Ethical Notice
+## ⚠️ Ethical Notice
 
 This repository is created exclusively to showcase QA automation skills.
 All accounts used were test accounts, and no real user data is involved.
 Do not use this automation to bypass security or create real accounts.
 
-🚀 Future Enhancements
+## 🚀 Future Enhancements
 
 Structured logging and JSON output
 
