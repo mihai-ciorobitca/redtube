@@ -3,6 +3,7 @@ from utils import get_username, get_verification_code
 import time
 from browser_manager import AsyncBrowserManager
 
+
 async def sign_up(page, username, password):
     await page.goto("https://www.redtube.com/", wait_until="networkidle")
 
@@ -15,23 +16,27 @@ async def sign_up(page, username, password):
     await page.wait_for_selector("#cookie_consent_wrapper", timeout=10000)
     print("Cookie wrapper detected.")
 
-    await page.evaluate("""
+    await page.evaluate(
+        """
         document.querySelectorAll('*').forEach(el => {
             if (getComputedStyle(el).zIndex > 1000) {
                 el.style.pointerEvents = 'none'
             }
         })
-    """)
+    """
+    )
     print("Overlay click-blockers disabled.")
 
-    await page.evaluate("""
+    await page.evaluate(
+        """
         const btn = document.querySelector('#consent_accept_all')
         if (btn) {
             btn.click()
         } else {
             console.log("Cookie button not found")
         }
-    """)
+    """
+    )
     print("Cookie consent accepted via JS.")
 
     await page.goto("https://www.redtube.com/register")
@@ -59,18 +64,21 @@ async def sign_up(page, username, password):
     try:
         await verification_wrapper.wait_for(state="visible", timeout=15000)
 
-        await page.evaluate("""
+        await page.evaluate(
+            """
             const overlay = document.querySelector('#emailVerificationBg');
             if (overlay) {
                 overlay.style.pointerEvents = 'none';
             }
-        """)
+        """
+        )
         print("Email verification overlay disabled.")
 
         code = await get_verification_code(username.split("@")[0])
         print(f"Verification code received: {code}")
 
-        await page.evaluate(f"""
+        await page.evaluate(
+            f"""
         (() => {{
             const code = '{code}';
             for (let i = 0; i < code.length; i++) {{
@@ -83,7 +91,8 @@ async def sign_up(page, username, password):
                 }}
             }}
         }})()
-        """)
+        """
+        )
 
         await page.wait_for_load_state("networkidle")
         print("Account verified successfully.")
@@ -93,6 +102,7 @@ async def sign_up(page, username, password):
         print("Verification step failed or not required.", e)
 
     input("Press ENTER to close...")
+
 
 async def sign_in(page, username, password):
     await page.goto("https://www.redtube.com/", wait_until="networkidle")
@@ -106,23 +116,27 @@ async def sign_in(page, username, password):
     await page.wait_for_selector("#cookie_consent_wrapper", timeout=10000)
     print("Cookie wrapper detected.")
 
-    await page.evaluate("""
+    await page.evaluate(
+        """
         document.querySelectorAll('*').forEach(el => {
             if (getComputedStyle(el).zIndex > 1000) {
                 el.style.pointerEvents = 'none'
             }
         })
-    """)
+    """
+    )
     print("Overlay click-blockers disabled.")
 
-    await page.evaluate("""
+    await page.evaluate(
+        """
         const btn = document.querySelector('#consent_accept_all')
         if (btn) {
             btn.click()
         } else {
             console.log("Cookie button not found")
         }
-    """)
+    """
+    )
     print("Cookie consent accepted via JS.")
 
     await page.goto("https://www.redtube.com/login")
@@ -146,14 +160,14 @@ async def sign_in(page, username, password):
     except Exception:
         print("TOS button not found or already accepted.")
 
-    profile_btn = page.locator("#header_user_avatar")       
+    profile_btn = page.locator("#header_user_avatar")
     await profile_btn.click()
 
     await page.wait_for_load_state("networkidle")
 
 
 async def main():
-    username = await get_username() 
+    username = await get_username()
     password = "SecretPassword123!"
     async with AsyncBrowserManager(headless=False) as page:
         username = await sign_up(page, username, password)
@@ -170,10 +184,11 @@ async def main():
         await page.screenshot(path=screenshot_path)
         print(f"Screenshot saved to {screenshot_path}")
 
+
 async def runner():
     for _ in range(1000):
         await main()
 
+
 if __name__ == "__main__":
     asyncio.run(runner())
-
